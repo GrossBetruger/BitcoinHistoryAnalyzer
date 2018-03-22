@@ -13,6 +13,11 @@ def csv_reader(csv_path):
         return [line.strip().split(",") for line in csv.readlines()]
 
 
+def to_dataset(csv_path):
+    raw = csv_reader(csv_path)
+    return [(to_stamp(raw_time), float(raw_price)) for raw_time, raw_price in raw]
+
+
 if __name__ == "__main__":
-    for line in csv_reader("market-price.csv"):
-        print(line), to_stamp(line[0])
+    for data_point in to_dataset("market-price.csv"):
+        print(data_point)
